@@ -34,7 +34,10 @@ def close_connection(exception):
 @app.after_request
 def add_headers(response):
     white_origin = ['https://www.quinielashoy.com', 'https://staging.quiniela.workers.dev',
-                    'https://quiniela.quiniela.workers.dev', 'http://api.quinielashoy.com', "https://5e563ed61dca278327bf5650--lucid-wescoff-699483.netlify.com"]
+                    'https://quiniela.quiniela.workers.dev', 'http://api.quinielashoy.com',
+                    "https://5e563ed61dca278327bf5650--lucid-wescoff-699483.netlify.com",
+                    "https://5e563ed61dca278327bf5650--lucid-wescoff-699483.netlify.com/"
+                    "http://localhost:3005"]
 
     if 'HTTP_ORIGIN' in request.environ and request.environ['HTTP_ORIGIN'] in white_origin:
         response.headers.add('Content-Type', 'application/json')
