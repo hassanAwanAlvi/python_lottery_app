@@ -70,6 +70,10 @@ def index():
         return {'error ': 'request in a while'}
 
 
+@app.route('/ping')
+def ping():
+    return jsonify({'success': 'it works'}), 200
+
 @app.route('/notify')
 def hello():
     db = get_db()
