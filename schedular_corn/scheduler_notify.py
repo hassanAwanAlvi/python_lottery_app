@@ -16,6 +16,7 @@ def main():
     response = requests.get("http://0.0.0.0:28100/send_all_notifications")
     # response = requests.get("https://www.digitalocean.com/docs/accounts/security/certificates/")
     # print(response)
+    print("DONE")
 
 
 
@@ -30,6 +31,7 @@ logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
 trigger = OrTrigger([
 
+   # CronTrigger(hour='6', minute='25-30', second='0-59', timezone='America/Argentina/Buenos_Aires'),
    CronTrigger(hour='11', minute='30', second='10', timezone='America/Argentina/Buenos_Aires'),
    CronTrigger(hour='14', minute='0', second='10', timezone='America/Argentina/Buenos_Aires'),
    CronTrigger(hour='17', minute='30', second='10', timezone='America/Argentina/Buenos_Aires'),
