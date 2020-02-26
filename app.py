@@ -35,7 +35,7 @@ def close_connection(exception):
 def add_headers(response):
     white_origin = ['https://www.quinielashoy.com', 'https://staging.quiniela.workers.dev',
                     'https://quiniela.quiniela.workers.dev', 'http://api.quinielashoy.com', 'http://localhost:8000',
-                    'http://localhost:28100', 'http://localhost:3005']
+                    'http://localhost:28100', 'http://localhost:3005', "*"]
 
     if 'HTTP_ORIGIN' in request.environ and request.environ['HTTP_ORIGIN'] in white_origin:
         response.headers.add('Content-Type', 'application/json')
