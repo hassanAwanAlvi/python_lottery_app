@@ -39,7 +39,7 @@ def add_headers(response):
                     "https://5e563ed61dca278327bf5650--lucid-wescoff-699483.netlify.com/"
                     "http://localhost:3005"]
 
-    if 'HTTP_ORIGIN' in request.environ and request.environ['HTTP_ORIGIN'] in white_origin:
+    if 'HTTP_ORIGIN' in request.environ:
         response.headers.add('Content-Type', 'application/json')
         response.headers.add('Access-Control-Allow-Origin', request.headers['Origin'])
         response.headers.add('Access-Control-Allow-Methods', 'GET')
@@ -146,38 +146,7 @@ def send_all_notifications():
 
 @app.route('/send_primeria_notifications')
 def send_primeria_notifications():
-
     return send_notification("Primeria")
-
-    # sqliteconnection = sqlite3.connect(database)
-    # cursor = sqliteconnection.cursor()
-    # cursor.execute("""select * from messages WHERE category = 'Primeria'""")
-    # result = cursor.fetchone()
-    #
-    #
-    # devices = cursor.execute("""select * from devices""")
-    # registration_tokens = [device[1] for device in devices]
-    # print('registration_tokens', registration_tokens)
-    #
-    # url = "https://fcm.googleapis.com/fcm/send"
-    #
-    # for device in registration_tokens:
-    #     # to = device[1]
-    #     data = {
-    #         "notification": {
-    #             "title": "Firebase",
-    #             "body": result[2],
-    #             "click_action": "http://localhost:3000/",
-    #             "icon": "http://url-to-an-icon/icon.png"
-    #         },
-    #         "to": device
-    #     }
-    #     response = requests.post(url, json.dumps(data), headers={
-    #         "Authorization" : "key=AAAAgUfefDI:APA91bFXqTUJ7M_0L8qJ3ZUK6YWo6O9lybbwEeI_5eVDd13IR-72PoABYvERRJ-mB8sN7uYKO9lXSNG0DNrI9UIkTd4KRnTiMqqm_WOKvYqtlAIGr8nNmssr2lmIekGBrN-Vr_92-xjF",
-    #         "Content-Type" :  "application/json"
-    #     })
-    # return jsonify({"success" : True}), 200
-
 
 @app.route('/send_matutina_notifications')
 def send_matutina_notifications():
@@ -204,10 +173,12 @@ def send_notification(category):
 
     # GET THE DEVICES WHICH HAVE SELECTED CATEGORIES
 
-    devices = cursor.execute("""select * from devices WHERE categories LIKE ? or categories LIKE '%0%'""", ('%'+str(category_id)+'%',))
+    devices = cursor.execute("""select * from devices WHERE categories LIKE ? or categories LIKE '0' or categories LIKE '%0%'""", ('%'+str(category_id)+'%',))
 
     registration_tokens = [device[1] for device in devices]
     print('registration_tokens', registration_tokens)
+
+    return jsonify({"success": registration_tokens}), 200
 
 
     url = "https://fcm.googleapis.com/fcm/send"
