@@ -178,7 +178,7 @@ def send_notification(category):
     registration_tokens = [device[1] for device in devices]
     print('registration_tokens', registration_tokens)
 
-    return jsonify({"success": registration_tokens}), 200
+    # return jsonify({"success": registration_tokens}), 200
 
 
     url = "https://fcm.googleapis.com/fcm/send"
